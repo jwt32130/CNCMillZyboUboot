@@ -203,6 +203,10 @@
 	"kernel_addr_r=0x2000000\0"     \
 	"scriptaddr=0x3000000\0"        \
 	"ramdisk_addr_r=0x3100000\0"    \
+	"loadbootenv=tftpboot ${kernel_addr_r} uEnv.txt\0" \
+	"importbootenv=echo Importing environment uEnv.txt ...; " \
+		"env import -t ${kernel_addr_r} ${filesize}\0" \
+	"envboot=run loadbootenv; run importbootenv\0" \
 	BOOTENV
 #endif
 
@@ -268,5 +272,9 @@
 /* BSS setup */
 #define CONFIG_SPL_BSS_START_ADDR	0x100000
 #define CONFIG_SPL_BSS_MAX_SIZE		0x100000
+
+#define CONFIG_IPADDR 10.0.0.3
+#define CONFIG_NETMASK	255.255.255.0
+#define CONFIG_SERVERIP	10.0.0.8
 
 #endif /* __CONFIG_ZYNQ_COMMON_H */
